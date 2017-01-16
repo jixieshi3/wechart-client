@@ -1,0 +1,22 @@
+{
+    "name": "woody712/wechart-client",
+    "type": "library",
+    "description": "WeChart API client",
+    "homepage": "https://github.com/woody712/wechart-client",
+    "keywords": ["wechart", "api", "client"],
+    "authors": [
+        {
+            "name": "Woody Lee",
+            "email": "woody712@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "ext-curl": "*"
+    },
+    "autoload": {
+        "psr-0": {
+            "WeChart": "src/"
+        }
+    }
+}

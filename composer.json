@@ -1,6 +1,7 @@
 {
     "name": "woody712/wechart-client",
     "type": "library",
+    "license": "MIT",
     "description": "WeChart API client",
     "homepage": "https://github.com/woody712/wechart-client",
     "keywords": ["wechart", "api", "client"],

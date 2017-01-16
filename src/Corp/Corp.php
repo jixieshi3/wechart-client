@@ -2,30 +2,27 @@
 namespace WeChart\Corp;
 
 use WeChart\Common\Curl;
+use WeChart\Corp\Exception as Exception;
 use WeChart\Corp\Message\Base as Message;
 use WeChart\Corp\Service\Base as Service;
 use WeChart\Corp\Resource\Base as Resource;
 
 class Corp {
 
-    const CORP_ID = '';
-
-    const CORP_SECRET = '';
-
     private static $_accessToken = '';
 
     private static $_expiresIn = '';
 
-    private function _connect()
+    private function _connect($corpId, $corpSecret)
     {
         $curl = new Curl;
-        $ret = $curl->query('gettoken', ['corpid' => self::CORP_ID, 'corpsecret' => self::CORP_SECRET]);
+        $ret = $curl->query('gettoken', ['corpid' => $corpId, 'corpsecret' => $corpSecret]);
         return $ret;
     }
 
-    public function __construct()
+    public function __construct($corpId, $corpSecret)
     {
-        $ret = $this->_connect();
+        $ret = $this->_connect($corpId, $corpSecret);
         if (isset($ret['errcode'])) {
             throw new Exception($ret['errmsg']);
         }
@@ -38,7 +35,7 @@ class Corp {
         if (!in_array($type, [Message::TYPE_TEXT, Message::TYPE_IMAGE, Message::TYPE_VOICE,
                               Message::TYPE_VIDEO, Message::TYPE_FILE, Message::TYPE_NEWS,
                               Message::TYPE_MPNEWS])) {
-            throw new Exception('消息类型不正确');
+            throw new Exception(Exception::ERR_MSG_TYPE);
         }
         $class = $type;
         if (in_array($type, [Message::TYPE_IMAGE, Message::TYPE_VOICE, Message::TYPE_VIDEO, Message::TYPE_FILE])) {
